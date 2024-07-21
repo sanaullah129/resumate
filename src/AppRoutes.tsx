@@ -1,21 +1,25 @@
 import App from "./App";
-import SignIn from "./auth/sign-in";
+import SignInPage from "./auth/sign-in";
+import Dashboard from "./dashboard";
 import Home from "./home";
 
 const Routes = [
   {
-    path: "/",
     element: <App />,
     children: [
       {
-        path: "/",
-        element: <Home />,
+        path: "/dashboard",
+        element: <Dashboard />,
       },
     ],
   },
   {
+    path: "/",
+    element: <Home />,
+  },
+  {
     path: "/auth/sign-in",
-    element: <SignIn />,
+    element: <SignInPage />,
   },
 ];
 
