@@ -7,13 +7,14 @@ const Header = () => {
 
   return (
     <div className="py-3 px-5 flex justify-between shadow-md">
-      <img src="/logo.svg" width={100} height={100} />
-
+      <Link to="/">
+        <img src="/logo.svg" width={100} height={100} />
+      </Link>
       <div>
         {isSignedIn ? (
           <div className="flex gap-2 items-center">
             <Link to="/dashboard">
-            <Button variant="outline">Dashboard</Button>
+              <Button variant="outline">Dashboard</Button>
             </Link>
             <UserButton />
           </div>
