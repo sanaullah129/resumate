@@ -14,7 +14,7 @@ const Dashboard = () => {
 
   const GetResumeList = () => {
     GlobalApi.GetUserResume(user?.primaryEmailAddress?.emailAddress).then(
-      (res) => {
+      (res: any) => {
         setResumeList(res.data.data);
       }
     );
