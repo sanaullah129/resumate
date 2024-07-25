@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 import FormSection from "../../components/FormSection";
 import ResumePreview from "../../components/ResumePreview";
 import { ResumeInfoContext } from "../../../../context/ResumeInfoContext";
 import dummy from "../../../../data/dummy";
 
 const EditResume = () => {
-  const params = useParams();
+  // const params = useParams();
   const [resumeInfo, setResumeInfo] = useState<any>();
 
   useEffect(() => {
