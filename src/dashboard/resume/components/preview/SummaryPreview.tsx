@@ -11,7 +11,7 @@ const SummaryPreview: FC<SummaryreviewProps> = ({
   return (
     <div>
       <p className="text-xs">
-        {resumeInfo?.summery}
+        {resumeInfo?.summary}
       </p>
     </div>
   );
