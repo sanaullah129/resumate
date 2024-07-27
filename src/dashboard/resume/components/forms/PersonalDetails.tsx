@@ -4,8 +4,8 @@ import { Input } from "../../../../components/ui/input";
 import { Button } from "../../../../components/ui/button";
 import GlobalApi from "../../../../../service/GlobalApi";
 import { useParams } from "react-router-dom";
-import { DiscIcon } from "@radix-ui/react-icons";
 import { toast } from "sonner";
+import { ImSpinner } from "react-icons/im";
 
 interface PersonalDetailsProps {
   enableNext: (v: boolean) => void;
@@ -87,7 +87,7 @@ const PersonalDetails: FC<PersonalDetailsProps> = ({ enableNext }) => {
         </div>
         <div className="flex justify-end mt-5">
           <Button type="submit" disabled={loading}>
-            {loading ? <DiscIcon className="animate-spin" /> : "Save"}
+            {loading ? <ImSpinner className="animate-spin" /> : "Save"}
           </Button>
         </div>
       </form>

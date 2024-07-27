@@ -1,4 +1,4 @@
-import { DiscIcon, StarFilledIcon } from "@radix-ui/react-icons";
+import {  } from "@radix-ui/react-icons";
 import { Button } from "../../../../components/ui/button";
 import { Textarea } from "../../../../components/ui/textarea";
 import {
@@ -15,13 +15,15 @@ import GlobalApi from "../../../../../service/GlobalApi";
 //@ts-ignore
 import AiChatSession from "../../../../../service/AiModal";
 import { toast } from "sonner";
+import { GiBrain } from "react-icons/gi";
+import { ImSpinner } from "react-icons/im";
 
 interface SummarysProps {
   enableNext: (v: boolean) => void;
 }
 
 const prompt =
-  "Job Title: {jobTitle}, Depends on the job title give me summary for my resume with in 4-5 lines in JSON format with field experience level and summary with experience level for fresher, midlevel and experienced, give a direct json with exp level and summary fields only!";
+  "Job Title: {jobTitle}, Depends on the job title give me a simple summary for my resume with in 4-5 lines, not in json format, just one single summary";
 
 const Summary: FC<SummarysProps> = ({ enableNext }) => {
   const [summaryInput, setSummaryInput] = useState<string>("");
@@ -74,10 +76,8 @@ const Summary: FC<SummarysProps> = ({ enableNext }) => {
       const PROMPT = prompt.replace("{jobTitle}", resumeInfo?.jobTitle);
       console.log(PROMPT);
       const result = await AiChatSession.AiChatSession.sendMessage(PROMPT);
-      //@ts-ignore
-      console.log(JSON.parse([result.response.text()]));
-      //@ts-ignore
-      setAiGeneratedSummaryList(JSON.parse([result.response.text()]));
+      setAiGeneratedSummaryList(result.response.text());
+      console.log(result.response.text())
       setLoading(false);
     } catch (error: any) {
       console.log("Ai Response error: " + error);
@@ -85,12 +85,15 @@ const Summary: FC<SummarysProps> = ({ enableNext }) => {
     }
   };
 
+  const handleCopyResponse = () => {
+    navigator.clipboard.writeText(aiGeneratedSummaryList.replace("\"", ""));
+  };
+
   return (
     <div>
       <div className="p-5 shadow-lg rounded-lg border-t-green-400 border-t-4 mt-10">
         <h2 className="font-bold text-lg">Summary</h2>
         <p>Add summary for your job profile</p>
-
         <form className="mt-7" onSubmit={handleFormSubmit}>
           <div className="flex justify-between items-end">
             <label>Add Summary</label>
@@ -101,7 +104,7 @@ const Summary: FC<SummarysProps> = ({ enableNext }) => {
               className="border-green-900 text-green-600"
               onClick={GenerateAiSummary}
             >
-              AI <StarFilledIcon />
+              AI <GiBrain />
             </Button>
           </div>
           <Textarea
@@ -112,22 +115,20 @@ const Summary: FC<SummarysProps> = ({ enableNext }) => {
           />
           <div className="mt-2 flex justify-end items-end">
             <Button disabled={loading} type="submit">
-              {loading ? <DiscIcon className="animate-spin" /> : "Save"}
+              {loading ? <ImSpinner className="animate-spin" /> : "Save"}
             </Button>
           </div>
         </form>
       </div>
       {aiGeneratedSummaryList && (
-        <div>
-          <h2 className="font-bold text-lg">Summary Suggestions</h2>
-          {aiGeneratedSummaryList.map((item: any, index: number) => {
-            <div key={index}>
-              <h2 className="font-bold my-1">
-                Level: {item?.experience_level}
-              </h2>
-              <p>{item?.summary}</p>
+        <div className="p-5 shadow-lg rounded-lg border-t-green-950 border-t-4 mt-10">
+          <h2 className="font-bold text-lg underline">Response of AI</h2>
+          <div>
+            <p>{aiGeneratedSummaryList}</p>
+            <div className="flex justify-end">
+            <Button size="sm" onClick={handleCopyResponse}>Copy</Button>
             </div>
-          })}
+          </div>
         </div>
       )}
     </div>

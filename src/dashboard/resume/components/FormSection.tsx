@@ -7,6 +7,7 @@ import { Button } from "../../../components/ui/button";
 import PersonalDetails from "./forms/PersonalDetails";
 import { useState } from "react";
 import Summary from "./forms/Summary";
+import Experience from "./forms/Experience";
 
 const FormSection = () => {
   const [activeFormIndex, setActiveFormIndex] = useState<number>(1);
@@ -46,6 +47,8 @@ const FormSection = () => {
         <PersonalDetails enableNext={(v) => setEnableNext(v)} />
       ) : activeFormIndex == 2 ? (
         <Summary enableNext={(v) => setEnableNext(v)} />
+      ) : activeFormIndex == 3 ? (
+        <Experience enableNext={(v) => setEnableNext(v)} />
       ) : null}
       {/* Experience */}
       {/* Education Details */}

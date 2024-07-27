@@ -1,4 +1,4 @@
-import { PlusCircledIcon, DiscIcon } from "@radix-ui/react-icons";
+import { PlusCircledIcon } from "@radix-ui/react-icons";
 import { ChangeEvent, useState } from "react";
 import {
   Dialog,
@@ -15,6 +15,7 @@ import { v4 as uuidv4 } from "uuid";
 import GlobalApi from "../../../service/GlobalApi";
 import { useUser } from "@clerk/clerk-react";
 import { useNavigate } from "react-router-dom";
+import { ImSpinner } from "react-icons/im";
 
 const AddResume = () => {
   const [openDialog, setOpenDialog] = useState<boolean>(false);
@@ -89,7 +90,7 @@ const AddResume = () => {
                 Cancel
               </Button>
               <Button onClick={handleCreate} disabled={!resumeTitle || loading}>
-                {loading ? <DiscIcon className="animate-spin" /> : "Create"}
+                {loading ? <ImSpinner className="animate-spin" /> : "Create"}
               </Button>
             </div>
           </DialogHeader>
